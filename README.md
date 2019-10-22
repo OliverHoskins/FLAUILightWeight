@@ -24,10 +24,9 @@ These being:
 - Label
 - ListBox
 - Menu
+- ProgressBar
 
 Leaving the Remaining automation elements: 
-- PopUp
-- ProgressBar
 - RadioButton
 - Slider
 - Table
@@ -37,7 +36,6 @@ Leaving the Remaining automation elements:
 # Declaring Elements
 To declare an Element to be acted apon and asserted against follow the below example: 
 
-    example :
-          var myLabel = new LabelElement(window, IdentifierType.text, "MatchingText")
+    var myLabel = new LabelElement(window, IdentifierType.text, "MatchingText")
 
 Each Element take a maximum of three values a Window, IdentifierType and a matching string (composition depending on the IdentifierType used to select the element)
