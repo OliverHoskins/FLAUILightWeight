@@ -389,4 +389,30 @@ namespace FlaUILW.ElementObjects
             Assert.AreEqual(text, menu.Properties.Name);
         }
     }
+
+    class ProgressBarElement : BaseElement
+    {
+        private ProgressBar element;
+
+        public ProgressBarElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
+        {
+            element = baseElement.AsProgressBar();
+            Assert.IsNotNull(element);
+        }
+
+        public void hasMaxValueOf(int maxValue)
+        {
+            Assert.AreEqual(maxValue, element.Maximum);
+        }
+
+        public void hasMinValueOf(int minValue)
+        {
+            Assert.AreEqual(minValue, element.Minimum);
+        }
+
+        public void hasCurrentValueOf(int currentValue)
+        {
+            Assert.AreEqual(currentValue, element.Value);
+        }
+    }
 }
