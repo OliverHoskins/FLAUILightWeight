@@ -2,7 +2,7 @@
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
 using FlaUI.UIA2;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PSPAutomation.ElementObjects
 {
@@ -12,7 +12,8 @@ namespace PSPAutomation.ElementObjects
         automationId,
         xPath,
         name,
-        text
+        text, 
+        menu
     }
 
     class BaseElement
@@ -22,7 +23,7 @@ namespace PSPAutomation.ElementObjects
         public AutomationElement baseElement;
         
 
-        public BaseElement(Window window, IdentifierType idType, string id)
+        public BaseElement(Window window, IdentifierType idType, string id = null )
         {
             this.window = window;
             GetElement(idType, id);
@@ -31,7 +32,7 @@ namespace PSPAutomation.ElementObjects
         /** In the event that the element var goes stale,
          * re-call ths meathod, 
          * or re-declare the element within the test **/
-        private void GetElement(IdentifierType idType, string id)
+        private void GetElement(IdentifierType idType, string id = null)
         {
             switch (idType)
             {
@@ -46,6 +47,9 @@ namespace PSPAutomation.ElementObjects
                     break;
                 case IdentifierType.text:
                     baseElement = window.FindFirstDescendant(cf => cf.ByText(id));
+                    break;
+                case IdentifierType.menu:
+                    baseElement = window.FindFirstChild(cf => cf.Menu());
                     break;
             }
         }
