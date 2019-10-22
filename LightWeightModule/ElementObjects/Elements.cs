@@ -3,14 +3,14 @@ using FlaUI.Core.Definitions;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace PSPAutomation.ElementObjects
+namespace FlaUILW.ElementObjects
 {
 
     class TextBoxElement : BaseElement
     {
         private TextBox element;
 
-        public TextBoxElement(Window window, IdentifierType idType, string id): base(window, idType, id)
+        public TextBoxElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsTextBox();
             Assert.IsNotNull(element);
@@ -57,7 +57,7 @@ namespace PSPAutomation.ElementObjects
     class CheckBoxElement : BaseElement
     {
         private CheckBox element;
-       
+
         public CheckBoxElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsCheckBox();
@@ -90,7 +90,7 @@ namespace PSPAutomation.ElementObjects
     {
 
         private ComboBox element;
-       
+
         public ComboBoxElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsComboBox();
@@ -153,7 +153,7 @@ namespace PSPAutomation.ElementObjects
     class GridElement : BaseElement
     {
         private Grid element;
-       
+
         public GridElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsGrid();
@@ -207,7 +207,7 @@ namespace PSPAutomation.ElementObjects
     class LabelElement : BaseElement
     {
         private Label element;
-       
+
         public LabelElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsLabel();
@@ -218,13 +218,13 @@ namespace PSPAutomation.ElementObjects
         {
             Assert.IsNotNull(element.Text);
             Assert.AreEqual(text, element.Text);
-        } 
+        }
     }
 
     class ListBoxElement : BaseElement
     {
         private ListBox element;
-       
+
         public ListBoxElement(Window window, IdentifierType idType, string id) : base(window, idType, id)
         {
             element = baseElement.AsListBox();
@@ -237,7 +237,7 @@ namespace PSPAutomation.ElementObjects
         }
 
         public void HasLength(int rows)
-        {   
+        {
             Assert.AreEqual(rows, element.Items.Length);
         }
 
@@ -251,7 +251,7 @@ namespace PSPAutomation.ElementObjects
         public void SelectItem(int row)
         {
             element.Items[row].Select();
-            Assert.AreEqual(element.Items[row], element.SelectedItem);   
+            Assert.AreEqual(element.Items[row], element.SelectedItem);
         }
 
         public void SelectItem(string text)
@@ -269,76 +269,124 @@ namespace PSPAutomation.ElementObjects
     class MenuElement : BaseElement
     {
         private Menu element;
-        private MenuItem subElement;
-        private MenuItem subSubElement;
-       
+
         public MenuElement(Window window, IdentifierType idType, string id = null) : base(window, idType, id)
         {
             element = baseElement.AsMenu();
             Assert.IsNotNull(element);
         }
 
-        public void getSubMenu(int item)
+        public MenuItem getMenu(int item)
         {
-            subElement = element.Items[item];
-            Assert.IsNotNull(subElement);
+            var menu = element.Items[item];
+            Assert.IsNotNull(menu);
+            return menu;
         }
 
-        public void getSubMenu(string item)
+        public MenuItem getMenu(string item)
         {
-            subElement = element.Items[item];
-            Assert.IsNotNull(subElement);
+            var menu = element.Items[item];
+            Assert.IsNotNull(menu);
+            return menu;
         }
 
-        public void getSubSubMenu(int item)
+        public MenuItem getSubMenu(int item, int subItem)
         {
-            subSubElement = subElement.Items[item];
-            Assert.IsNotNull(subSubElement);
-        }
-
-        public void getSubSubMenu(string item)
-        {
-            subSubElement = subElement.Items[item];
-            Assert.IsNotNull(subSubElement);
-        }
-
-
-        public void HasSubMenuWithLength(int item, int length)
-        {
-            var subMenu = element.Items[item];
+            var subMenu = element.Items[item].Items[subItem];
             Assert.IsNotNull(subMenu);
-            Assert.AreEqual(subMenu.Items.Length, length);
+            return subMenu;
         }
 
-        public void HasSubSubMenuWithLength(int item, int subitem, int length)
+        public MenuItem getSubMenu(string item, string subItem)
         {
-            var subMenu = element.Items[item].Items[subitem];
+            var subMenu = element.Items[item].Items[subItem];
             Assert.IsNotNull(subMenu);
-            Assert.AreEqual(subMenu.Items.Length, length);
+            return subMenu;
         }
 
-        public void HasLength(int length)
+        public MenuItem getSubMenu(int item, string subItem)
         {
-            Assert.AreEqual(element.Items.Length, length);
+            var subMenu = element.Items[item].Items[subItem];
+            Assert.IsNotNull(subMenu);
+            return subMenu;
         }
 
-        public void HasItemWithText(int item, string text)
+        public MenuItem getSubMenu(string item, int subItem)
         {
-            Assert.AreEqual(element.Items[item].Text, text);
+            var subMenu = element.Items[item].Items[subItem];
+            Assert.IsNotNull(subMenu);
+            return subMenu;
         }
 
-        public void HasSubItemWithText(int item, int  subItem, string text)
+        public MenuItem getSubSubMenu(int item, int subItem, int subSubItem)
         {
-            var subMenuItem = element.Items[item].Items[subItem];
-            Assert.IsNotNull(subMenuItem);
-            Assert.AreEqual(subMenuItem.Text, text);
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
         }
 
-        public void HasSubSubItemWithText(int item, int subItem, int subSubItem, string text)
+        public MenuItem getSubSubMenu(string item, string subItem, int subSubItem)
         {
-            var subSubMenuItem = element.Items[item].Items[subItem].Items[subSubItem];
-            Assert.IsNotNull(subSubMenuItem);
-            Assert.AreEqual(subSubMenuItem.Text, text);
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(int item, string subItem, int subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(string item, int subItem, int subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(int item, int subItem, string subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(string item, string subItem, string subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(int item, string subItem, string subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public MenuItem getSubSubMenu(string item, int subItem, string subSubItem)
+        {
+            var subSubMenu = element.Items[item].Items[subItem].Items[subSubItem];
+            Assert.IsNotNull(subSubMenu);
+            return subSubMenu;
+        }
+
+        public void hasLength(int length)
+        {
+            Assert.AreEqual(length, element.Items.Length);
+        }
+
+        public void hasMenuWithLength(MenuItem menu, int length)
+        {
+            Assert.AreEqual(menu.Items.Length, element.Items.Length);
+        }
+
+        public void hasMenuWithName(MenuItem menu, string text)
+        {
+            Assert.AreEqual(text, menu.Properties.Name);
         }
     }
 }

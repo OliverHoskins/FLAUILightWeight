@@ -1,10 +1,8 @@
-﻿using FlaUI.Core;
-using FlaUI.Core.AutomationElements;
+﻿using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
-using FlaUI.UIA2;
 using NUnit.Framework;
 
-namespace PSPAutomation.ElementObjects
+namespace FlaUILW.ElementObjects
 {
 
     enum IdentifierType
@@ -12,7 +10,7 @@ namespace PSPAutomation.ElementObjects
         automationId,
         xPath,
         name,
-        text, 
+        text,
         menu
     }
 
@@ -21,9 +19,9 @@ namespace PSPAutomation.ElementObjects
         private Window popup;
         public Window window;
         public AutomationElement baseElement;
-        
 
-        public BaseElement(Window window, IdentifierType idType, string id = null )
+
+        public BaseElement(Window window, IdentifierType idType, string id = null)
         {
             this.window = window;
             GetElement(idType, id);
